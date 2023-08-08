@@ -21,7 +21,7 @@ public class TestRegisterFeature {
 		public static void main(String[] args) {
 			
 
-	        User user1 = new User("Dinesh","dinesh@gmail.com", "Dinesh@123","Chennai", "6380843015", "214365870912");
+	        User user1 = new User("Kishor","Kishor@gmail.com", "Kishor@123","Chennai", "6380843011", "214365870911");
 	        UserServices userService = new UserServices();
 
 			try {
