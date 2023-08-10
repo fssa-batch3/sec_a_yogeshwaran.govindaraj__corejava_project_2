@@ -1,2 +1,10 @@
 /META-INF/
 /blood/
+/bloodDAO/
+/bloodDAOException/
+/bloodmodel/
+/bloodserviceexception/
+/bloodDAOexception/
+/bloodservices/
+/bloodvalidation/
+/bloodvalidationexception/
