@@ -11,7 +11,7 @@ public class TestRequestFeature {
 
 	public static void main(String[] args) {
 		
-		Request user1 = new Request("I need A+ blood", "Thank you for giving blood", "A+", "2012-03-23", "218865870911", "2188658709");
+		Request user1 = new Request("i need O+ blood group", "Thank you for giving blood", "O+", "2023-08-10", "218965870911", "2188658708");
 		RequestService requestService = new RequestService();
 
 		try {
