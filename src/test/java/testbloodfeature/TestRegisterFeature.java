@@ -15,6 +15,9 @@ import bloodDAOexception.DAOException;
 
 public class TestRegisterFeature {
 
+	//main methode
+	
+	
 		public static void main(String[] args) {
 	
 			User user1 = new User("ishu", "ishu@gmail.com", "ishu@123", "Chennai", "6380840991", "218865870901");
@@ -29,6 +32,7 @@ public class TestRegisterFeature {
 	
 		}
 
+		
 	@Test
 	public void testRegistrationSuccess() throws InvalidUserException, SQLException {
 
