@@ -1,0 +1,34 @@
+-------------------------------------------------------------------------------
+Test set: testbloodfeature.TestLoginFeature
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 1.282 sec <<< FAILURE!
+testbloodfeature.TestLoginFeature.testRegistrationSuccess()  Time elapsed: 0.02 sec  <<< FAILURE!
+java.lang.NullPointerException: Cannot invoke "java.lang.CharSequence.length()" because "this.text" is null
+	at java.base/java.util.regex.Matcher.getTextLength(Matcher.java:1769)
+	at java.base/java.util.regex.Matcher.reset(Matcher.java:415)
+	at java.base/java.util.regex.Matcher.<init>(Matcher.java:252)
+	at java.base/java.util.regex.Pattern.matcher(Pattern.java:1134)
+	at java.base/java.util.regex.Pattern.matches(Pattern.java:1175)
+	at bloodvalidation.UserValidator.Validatename(UserValidator.java:26)
+	at bloodvalidation.UserValidator.Validation(UserValidator.java:12)
+	at bloodservices.UserServices.create(UserServices.java:18)
+	at testbloodfeature.TestLoginFeature.testRegistrationSuccess(TestLoginFeature.java:44)
+
+testbloodfeature.TestLoginFeature.testInvalidPassword()  Time elapsed: 0.001 sec  <<< FAILURE!
+java.lang.NullPointerException: Cannot invoke "java.lang.CharSequence.length()" because "this.text" is null
+	at java.base/java.util.regex.Matcher.getTextLength(Matcher.java:1769)
+	at java.base/java.util.regex.Matcher.reset(Matcher.java:415)
+	at java.base/java.util.regex.Matcher.<init>(Matcher.java:252)
+	at java.base/java.util.regex.Pattern.matcher(Pattern.java:1134)
+	at java.base/java.util.regex.Pattern.matches(Pattern.java:1175)
+	at bloodvalidation.UserValidator.Validatename(UserValidator.java:26)
+	at bloodvalidation.UserValidator.Validation(UserValidator.java:12)
+	at bloodservices.UserServices.create(UserServices.java:18)
+	at testbloodfeature.TestLoginFeature.testInvalidPassword(TestLoginFeature.java:53)
+
+testbloodfeature.TestLoginFeature.testUserNull()  Time elapsed: 1.235 sec  <<< FAILURE!
+java.lang.NullPointerException: Cannot invoke "bloodmodel.User.getname()" because "user" is null
+	at bloodDAO.UserDAO.createUser(UserDAO.java:50)
+	at bloodservices.UserServices.create(UserServices.java:19)
+	at testbloodfeature.TestLoginFeature.testUserNull(TestLoginFeature.java:61)
+

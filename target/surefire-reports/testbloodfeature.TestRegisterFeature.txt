@@ -1,0 +1,32 @@
+-------------------------------------------------------------------------------
+Test set: testbloodfeature.TestRegisterFeature
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.177 sec <<< FAILURE!
+testbloodfeature.TestRegisterFeature.testRegistrationSuccess()  Time elapsed: 0.088 sec  <<< FAILURE!
+org.opentest4j.AssertionFailedError
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:34)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:116)
+	at testbloodfeature.TestRegisterFeature.testRegistrationSuccess(TestRegisterFeature.java:46)
+
+testbloodfeature.TestRegisterFeature.testInvalidPassword()  Time elapsed: 0.055 sec  <<< FAILURE!
+bloodDAOexception.DAOException: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'Yogesh' for key 'register.PRIMARY'
+	at bloodDAO.UserDAO.createUser(UserDAO.java:62)
+	at bloodservices.UserServices.create(UserServices.java:19)
+	at testbloodfeature.TestRegisterFeature.testInvalidPassword(TestRegisterFeature.java:57)
+Caused by: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'Yogesh' for key 'register.PRIMARY'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:118)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:916)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1061)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1009)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1320)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:994)
+	at bloodDAO.UserDAO.createUser(UserDAO.java:59)
+	... 20 more
+
+testbloodfeature.TestRegisterFeature.testUserNull()  Time elapsed: 0.032 sec  <<< FAILURE!
+java.lang.NullPointerException: Cannot invoke "bloodmodel.User.getname()" because "user" is null
+	at bloodDAO.UserDAO.createUser(UserDAO.java:50)
+	at bloodservices.UserServices.create(UserServices.java:19)
+	at testbloodfeature.TestRegisterFeature.testUserNull(TestRegisterFeature.java:70)
+

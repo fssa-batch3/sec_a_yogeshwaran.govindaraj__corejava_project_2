@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="validation.TestPassword" time="0.001" errors="0" skipped="0">
+<testsuite tests="0" failures="0" name="testbloodfeature.TestRequestFeature" time="0" errors="0" skipped="0">
   <properties>
     <property name="jansi.mode" value="force"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -61,10 +61,4 @@
     <property name="m2e.build.project.data.socket.port" value="61488"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="validation.TestPassword" name="validation.TestPassword.testInvalidPasswordWithoutCapitalLetters" time="0.001"/>
-  <testcase classname="validation.TestPassword" name="validation.TestPassword.testInvalidPasswordWithoutSmallLetters" time="0"/>
-  <testcase classname="validation.TestPassword" name="validation.TestPassword.testInvalidPasswordWithoutSpecialCharacters" time="0"/>
-  <testcase classname="validation.TestPassword" name="validation.TestPassword.testValidPassword" time="0"/>
-  <testcase classname="validation.TestPassword" name="validation.TestPassword.testInvalidPasswordShorterLength" time="0"/>
-  <testcase classname="validation.TestPassword" name="validation.TestPassword.testInvalidPasswordWithoutNumbers" time="0"/>
 </testsuite>

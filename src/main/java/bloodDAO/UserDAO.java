@@ -8,11 +8,26 @@ import java.sql.SQLException;
 
 import bloodDAOexception.DAOException;
 import bloodmodel.User;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class UserDAO {
 	
 	//connection to database 
 	public Connection getConnection() throws SQLException {
+		String dbUrl;
+		String dbUser;
+		String dbPassword;
+
+		if (System.getenv("CI") != null) {
+			dbUrl = System.getenv("DB_URL");
+			dbUser = System.getenv("DB_USER");
+			dbPassword = System.getenv("DB_PASSWORD");
+		} else {
+			Dotenv env = Dotenv.load();
+			dbUrl = env.get("DB_URL");
+			dbUser = env.get("DB_USER");
+			dbPassword = env.get("DB_PASSWORD");
+		}
 		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/blood","root","123456");
 		return connection;
 	}

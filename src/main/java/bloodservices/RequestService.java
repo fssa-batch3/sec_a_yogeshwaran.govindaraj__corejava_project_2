@@ -59,7 +59,7 @@ public boolean updaterequest(Request request) throws ServicesException, DAOExcep
 			} else {
 				return false;
 			}
-		} catch (InvalidUserException e) {
+		} catch (InvalidUserException  e) {
 			throw new ServicesException(e);
 		}
 
