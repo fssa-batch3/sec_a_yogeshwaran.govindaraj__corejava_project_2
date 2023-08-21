@@ -1,11 +1,11 @@
-package validation;
+package com.fssa.validation;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import bloodvalidation.UserValidator;
+import com.fssa.blood.validation.UserValidator;
 
 public class TestPassword {
 

@@ -1,9 +1,9 @@
-package bloodvalidation;
+package com.fssa.blood.validation;
 
 import java.util.regex.Pattern;
 
-import bloodmodel.Request;
-import bloodvalidationexception.InvalidUserException;
+import com.fssa.blood.model.Request;
+import com.fssa.blood.validation.exception.InvalidUserException;
 
 public class RequestValidator {
 	

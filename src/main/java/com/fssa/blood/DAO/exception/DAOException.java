@@ -1,4 +1,4 @@
-package bloodDAOexception;
+package com.fssa.blood.DAO.exception;
 
 public class DAOException extends Exception {
 	

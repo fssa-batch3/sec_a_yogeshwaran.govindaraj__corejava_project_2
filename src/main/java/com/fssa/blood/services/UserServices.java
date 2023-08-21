@@ -1,16 +1,16 @@
-package bloodservices;
+package com.fssa.blood.services;
 
 import java.sql.SQLException;
 
-import bloodDAO.UserDAO;
-import bloodDAOexception.DAOException;
-import bloodmodel.User;
-import bloodserviceexception.ServicesException;
-import bloodvalidation.UserValidator;
-import bloodvalidationexception.InvalidUserException;
+import com.fssa.blood.DAO.UserDAO;
+import com.fssa.blood.DAO.exception.DAOException;
+import com.fssa.blood.model.User;
+import com.fssa.blood.service.exception.ServicesException;
+import com.fssa.blood.validation.UserValidator;
+import com.fssa.blood.validation.exception.InvalidUserException;
 
 public class UserServices {
-	public boolean create(User user) throws ServicesException, DAOException {
+	public boolean create(User user) throws ServicesException {
 		
 		UserDAO userDAO = new UserDAO();
 		
@@ -22,7 +22,7 @@ public class UserServices {
 			} else {
 				return false;
 			}
-		} catch (InvalidUserException e) {
+		} catch (InvalidUserException | DAOException e) {
 			throw new ServicesException(e);
 		}
 
@@ -33,7 +33,7 @@ public class UserServices {
 	public boolean loginUser(User user) throws ServicesException {
 
 		try {
-			UserValidator.Validateemail(user.getemail());
+			UserValidator.validateEmail(user.getemail());
 			UserValidator.Validatepassword(user.getpassword());
 
 			UserDAO userDAO = new UserDAO();

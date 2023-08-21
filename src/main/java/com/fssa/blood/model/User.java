@@ -1,4 +1,4 @@
-package bloodmodel;
+package com.fssa.blood.model;
 
 public class User {
 	public String name;

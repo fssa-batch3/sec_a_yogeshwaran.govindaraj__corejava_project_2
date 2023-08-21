@@ -1,11 +1,11 @@
-package bloodservices;
+package com.fssa.blood.services;
 
-import bloodDAO.RequestDAO;
-import bloodDAOexception.DAOException;
-import bloodmodel.Request;
-import bloodserviceexception.ServicesException;
-import bloodvalidation.RequestValidator;
-import bloodvalidationexception.InvalidUserException;
+import com.fssa.blood.DAO.RequestDAO;
+import com.fssa.blood.DAO.exception.DAOException;
+import com.fssa.blood.model.Request;
+import com.fssa.blood.service.exception.ServicesException;
+import com.fssa.blood.validation.RequestValidator;
+import com.fssa.blood.validation.exception.InvalidUserException;
 
 public class RequestService {
 

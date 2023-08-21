@@ -1,4 +1,4 @@
-package bloodvalidationexception;
+package com.fssa.blood.validation.exception;
 
 public class InvalidUserException extends Exception {
 

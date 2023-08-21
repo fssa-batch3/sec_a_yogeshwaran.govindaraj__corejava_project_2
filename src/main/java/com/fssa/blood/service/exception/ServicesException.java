@@ -1,4 +1,4 @@
-package bloodserviceexception;
+package com.fssa.blood.service.exception;
 
 public class ServicesException extends Exception{
 	

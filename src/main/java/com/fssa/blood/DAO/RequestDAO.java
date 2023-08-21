@@ -1,4 +1,4 @@
-package bloodDAO;
+package com.fssa.blood.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,8 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import bloodDAOexception.DAOException;
-import bloodmodel.Request;
+import com.fssa.blood.DAO.exception.DAOException;
+import com.fssa.blood.model.Request;
 
 public class RequestDAO {
 
