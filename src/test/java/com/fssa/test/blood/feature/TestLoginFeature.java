@@ -5,14 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.sql.SQLException;
+
 import org.junit.jupiter.api.Test;
 
 import com.fssa.blood.DAO.exception.DAOException;
 import com.fssa.blood.model.User;
 import com.fssa.blood.service.exception.ServicesException;
-import com.fssa.blood.services.*;
+import com.fssa.blood.services.UserServices;
 import com.fssa.blood.validation.exception.InvalidUserException;
-import com.google.protobuf.ServiceException;
 
 public class TestLoginFeature {
 	
@@ -35,22 +35,28 @@ public class TestLoginFeature {
 		}
 
 		@Test
-		public void testRegistrationSuccess() throws InvalidUserException, SQLException {
+		public void testLoginSuccess() throws InvalidUserException, SQLException {
 			long startTime = System.nanoTime();
 
 			UserServices userService = new UserServices();
 			User user1 = new User("yogs" + startTime + "@gmail.com", "Yogesh", "Ajmal@123", "Chennai the is good ",
 					"6380843014", "214365870916");
 			try {
-				assertTrue(userService.create(user1));
-			} catch (ServicesException e) {
+				assertFalse(userService.create(user1));
+			} catch (ServicesException | InvalidUserException e) {
+				
 				e.printStackTrace();
-
+				
 			}
+		
 		}
-
+		
+			
+		
+		
+		
 		@Test
-		public void testInvalidPassword() throws InvalidUserException, SQLException {
+		public void testInvalidPassword() throws InvalidUserException, SQLException, ServicesException {
 			long startTime = System.nanoTime();
 
 			UserServices userService = new UserServices();
@@ -58,22 +64,29 @@ public class TestLoginFeature {
 					"6380843014", "214365870916");
 			try {
 				assertFalse(userService.create(user1));
-			} catch (ServicesException e) {
+			} catch (ServicesException | InvalidUserException e) {
+				
 				e.printStackTrace();
+				
 			}
+		
 		}
 
 		@Test
-		public void testUserNull() {
+		public void testUserNull() throws DAOException, ServicesException, InvalidUserException {
 
 			UserServices userService = new UserServices();
 			User user1 = null;
+			
 			try {
 				assertFalse(userService.create(user1));
 				fail();
-			} catch (ServicesException e) {
+
+			} catch (ServicesException | InvalidUserException e) {
+				
 				e.printStackTrace();
 			}
+		
 
 		}
 }

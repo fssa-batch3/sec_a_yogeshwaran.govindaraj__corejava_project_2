@@ -10,7 +10,7 @@ import com.fssa.blood.validation.UserValidator;
 import com.fssa.blood.validation.exception.InvalidUserException;
 
 public class UserServices {
-	public boolean create(User user) throws ServicesException {
+	public boolean create(User user) throws ServicesException, InvalidUserException{
 		
 		UserDAO userDAO = new UserDAO();
 		
@@ -22,7 +22,7 @@ public class UserServices {
 			} else {
 				return false;
 			}
-		} catch (InvalidUserException | DAOException e) {
+		} catch (DAOException e) {
 			throw new ServicesException(e);
 		}
 
