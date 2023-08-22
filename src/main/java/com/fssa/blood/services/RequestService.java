@@ -54,7 +54,7 @@ public boolean updaterequest(Request request) throws ServicesException, DAOExcep
 		try {
 			RequestValidator.Validation(request);
 			if (requestDAO.updaterequest(request)) {
-				System.out.println("Successfully Reading");
+				System.out.println("Successfully Update");
 				return true;
 			} else {
 				return false;

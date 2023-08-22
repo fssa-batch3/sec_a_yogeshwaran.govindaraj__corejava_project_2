@@ -20,7 +20,7 @@ public class TestRegisterFeature {
 
 	public static void main(String[] args) throws ServicesException, InvalidUserException {
 
-		User user1 = new User("Vinit", "Vinit@gmail.com", "Vinit@123", "Mumbai", "6380843000", "638084301477");
+		User user1 = new User("kamelesh", "Kamlesh@gmail.com", "Kamlesh@123", "Trichy", "6380843001", "638084301471");
 		UserServices userService = new UserServices();
 
 		try {
