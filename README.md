@@ -143,3 +143,13 @@ Create, Update, read,
 UserValidationUnitTest
 
 RequestValidationUnitTest
+
+
+
+### Exception Handling
+**Custom Exceptions :**
+DAO Exception
+
+Validation Exception
+
+Service Exception
