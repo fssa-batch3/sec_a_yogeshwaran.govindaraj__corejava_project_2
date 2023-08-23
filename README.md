@@ -64,9 +64,11 @@ H --> B
 H --> I  
 G --> I  
 ```
-User Module :
+**User Module:**
 Add a user:
+
 Allows to register new users.
+
 Update user details:
 Enables to modify user information such as name, password, etc.
 Remove a user:
