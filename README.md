@@ -101,7 +101,6 @@ And User can give describition .
 Giving date User 
 
 ### Validations
-
 **User Validations :**
 
 Name Validation
@@ -131,7 +130,6 @@ Phone number Validation
 
 
 ### Unit Testing
-
 **UserServiceUnitTest**
 
 Register, Login,create, Update, Delete and List all Users.
