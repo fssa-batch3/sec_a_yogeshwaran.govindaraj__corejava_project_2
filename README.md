@@ -65,12 +65,21 @@ H --> I
 G --> I  
 ```
 **User Module:**
+
 Add a user:
 
 Allows to register new users.
 
 Update user details:
+
 Enables to modify user information such as name, password, etc.
+
 Remove a user:
+
 Allows to remove a user.
+
+Delete a user:
+
+Allows to delete user.
+
 Show a list of all registered users.
