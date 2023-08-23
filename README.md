@@ -100,4 +100,30 @@ And User can give describition .
 
 Giving date User 
 
+### Validations
 
+**User Validations :**
+
+Name Validation
+
+Email Id Validation
+
+Phone number Validation
+
+Password Validation
+
+address Validation
+
+
+
+**Request Validations :**
+
+Title Validation
+
+Date of Birth Validation
+
+Description Validation
+
+Blood group Validation
+
+Phone number Validation
