@@ -64,3 +64,90 @@ H --> B
 H --> I  
 G --> I  
 ```
+**User Module:**
+
+Add a user:
+
+Allows to register new users.
+
+Update user details:
+
+Enables to modify user information such as name, password, etc.
+
+Remove a user:
+
+Allows to remove a user.
+
+Delete a user:
+
+Allows to delete user.
+
+Show a list of all registered users.
+
+
+
+**Request Module :**
+
+Request a blood:
+
+Allow users to request a blood.
+
+blood detail 
+
+user can choose blood group 
+
+And User can give describition .
+
+Giving date User 
+
+### Validations
+**User Validations :**
+
+Name Validation
+
+Email Id Validation
+
+Phone number Validation
+
+Password Validation
+
+address Validation
+
+
+
+**Request Validations :**
+
+Title Validation
+
+Date of Birth Validation
+
+Description Validation
+
+Blood group Validation
+
+Phone number Validation
+
+
+
+### Unit Testing
+**UserServiceUnitTest**
+
+Register, Login,create, Update, Delete and List all Users.
+
+RequestServiceUnitTest
+
+Create, Update, read,
+
+UserValidationUnitTest
+
+RequestValidationUnitTest
+
+
+
+### Exception Handling
+**Custom Exceptions :**
+DAO Exception
+
+Validation Exception
+
+Service Exception
