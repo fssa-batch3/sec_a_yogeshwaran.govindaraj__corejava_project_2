@@ -1,6 +1,7 @@
 package com.fssa.blood.DAO;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,20 +10,29 @@ import java.sql.SQLException;
 import com.fssa.blood.DAO.exception.DAOException;
 import com.fssa.blood.model.User;
 
-import io.github.cdimascio.dotenv.Dotenv;
 
 public class UserDAO {
 	
-	//connection to database 
+	//Connection to Database 
 	
+	public Connection getConnection()  {
 
-	public Connection getConnection() throws SQLException {
-
-		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/blood", "root", "123456");
+		Connection connection = null; 
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/blood", "root", "123456");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Unable  to connect database", e); 
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Database driver class not found", e); 
+		}
 		return connection;
 	}
 	
-	//login
+	
+	//login User
 	
 	public boolean login(User user) throws DAOException {
 		
@@ -42,14 +52,14 @@ public class UserDAO {
 	}
 	
 	
-	// create User
+		// Create User
 	
 	public boolean createUser(User user) throws DAOException {
 		
 		try {
 			Connection connection = getConnection();
 			
-			String query = "INSERT INTO register(name,email,password,address,phone,id) VALUES(?,?,?,?,?,?)";
+			String query = "INSERT INTO user(name,email,password,address,phone) VALUES(?,?,?,?,?)";
 			PreparedStatement state = connection.prepareStatement(query);
 			
 			state.setString(1,user.getname());
@@ -57,9 +67,9 @@ public class UserDAO {
 			state.setString(3,user.getpassword());
 			state.setString(4,user.getaddress());
 			state.setString(5,user.getphone());
-			state.setString(6,user.getid());
+
 			
-			//Excete the query 
+			// Execute the query 
 			
 			int row = state.executeUpdate();
 			return (row == 1);
@@ -69,13 +79,13 @@ public class UserDAO {
 	}
 			
 	
-	//update user
+			//Update User
 			
 			public boolean update(User user)throws DAOException {
 				try {
 				Connection connection = getConnection();
 				
-				String updatequery = "UPDATE user SET name = ?,email = ?, password = ?,address = ?, phone = ?, id = ?";
+				String updatequery = "UPDATE user SET name = ?,email = ?, password = ?,address = ?, phone = ?";
 				PreparedStatement state = connection.prepareStatement(updatequery);
 				
 				state.setString(1,user.getname());
@@ -83,7 +93,7 @@ public class UserDAO {
 				state.setString(3,user.getpassword());
 				state.setString(4,user.getaddress());
 				state.setString(5,user.getphone());
-				state.setString(6,user.getid());
+			
 				
 				int row = state.executeUpdate();
 				
@@ -96,7 +106,7 @@ public class UserDAO {
 				
 				
 			
-			//delete user
+			//Delete User
 				public boolean delete(User user)throws DAOException {
 					try {
 					Connection connection = getConnection();

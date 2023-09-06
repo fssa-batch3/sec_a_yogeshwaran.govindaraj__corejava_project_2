@@ -2,8 +2,11 @@ package com.fssa.blood.validation;
 
 import java.util.regex.Pattern;
 
+import com.fssa.blood.DAO.exception.DAOException;
 import com.fssa.blood.model.User;
 import com.fssa.blood.validation.exception.InvalidUserException;
+
+
 
 public class UserValidator {
 
@@ -11,24 +14,71 @@ public class UserValidator {
 		boolean match = false;
 		if (user != null && Validatename(user.getname()) && validateEmail(user.getemail())
 				&& Validatepassword(user.getpassword()) && Validatephone(user.getphone())
-				&& Validateaddress(user.getaddress()) && Validateid(user.getid())) {
+				&& Validateaddress(user.getaddress()) ) {
 			match = true;
 		} else {
 			throw new InvalidUserException("Invalid user");
 		}
 		return match;
 	}
+	
+	
+	// Checking the loginUser present or not
+
+			public static boolean validateLogIn(User user) throws DAOException {
+				if (user != null && validateEmail(user.getemail()) && Validatepassword(user.getpassword())) {
+					return true;
+				} else {
+					throw new DAOException("User details not valid");
+
+				}
+			}
+		
+			
+			// Checking the validate update details
+			
+			public static boolean validateUpdateUser(User user) throws DAOException, InvalidUserException {
+				if (user != null && Validatename(user.getname()) && Validatepassword(user.getpassword())
+						&& validateEmail(user.getemail())){
+					return true; 
+				} else {
+					throw new DAOException("User details not valid");
+				}
+			}
+			
+			// Checking the validate deleted details
+			
+			public static boolean validateDeleteUser(User user) throws DAOException {
+				if (user != null && validateEmail(user.getemail()) ) {
+					return true;
+				} else {
+					throw new DAOException("User details not valid");
+
+				}
+			}
+/**
+ * name must contain alapbetes
+ * @param name
+ * @return
+ * @throws InvalidUserException
+ */
+	
+			
+		
+
+
+			//its mine 
 
 	public static boolean Validatename(String name) throws InvalidUserException {
 		boolean match = false;
 
-		String regex = "^[A-Za-z0-9]{3,29}";
+		String regex = "^[A-Za-z]\\w{2,29}$";;
 		match = Pattern.matches(regex, name);
 
 		if (match) {
-			System.out.println("The user name is validate");
+			System.out.println("Name is Valid");
 		} else {
-			throw new InvalidUserException("Invalid user name");
+			throw new InvalidUserException("Name is Invalid");
 		}
 		return match;
 	}
@@ -40,9 +90,9 @@ public class UserValidator {
 		match = Pattern.matches(emailRegex, email);
 
 		if (match) {
-			System.out.println("The user email is validate");
+			System.out.println("Email is Valid");
 		} else {
-			System.out.println("The user email is not validate");
+			System.out.println("Email is Invalid");
 		}
 		return match;
 	}
@@ -50,13 +100,13 @@ public class UserValidator {
 	public static boolean Validatepassword(String password) {
 		boolean match = false;
 
-		String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+		String passwordRegex = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=])(?=.*[^\\s]).{8,}$";
 		match = Pattern.matches(passwordRegex, password);
 
 		if (match) {
-			System.out.println("The user password is validate");
+			System.out.println("Valid password.");
 		} else {
-			System.out.println("The user password is not validate");
+			System.out.println("Invalid password");
 		}
 		return match;
 	}
@@ -69,9 +119,9 @@ public class UserValidator {
 		match = Pattern.matches(addressRegex, address);
 
 		if (match) {
-			System.out.println("The user address is validate");
+			System.out.println("Address is valid");
 		} else {
-			System.out.println("The user address is not validate");
+			System.out.println("Address is Invalid");
 		}
 		return match;
 	}
@@ -79,28 +129,16 @@ public class UserValidator {
 	public static boolean Validatephone(String phone) {
 
 		boolean match = false;
-		String phoneRegex = "^(\\+\\d{1,3})?\\s?\\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{4}$";
+		String phoneRegex = "[0-9]{10}";
 		match = Pattern.matches(phoneRegex, phone);
 
 		if (match) {
-			System.out.println("The user phone is validate");
+			System.out.println("PhoneNumber is Valid");
 		} else {
-			System.out.println("The user phone is not validate");
+			System.out.println("PhoneNumber is Invalid");
 		}
 		return match;
 	}
 
-	public static boolean Validateid(String id) {
-		boolean match = false;
 
-		String idRegex = "^[0-9]{12}$";
-		match = Pattern.matches(idRegex, id);
-
-		if (match) {
-			System.out.println("The user phone is validate");
-		} else {
-			System.out.println("The user phone is not validate");
-		}
-		return match;
-	}
 }

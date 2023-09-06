@@ -1,6 +1,7 @@
 package com.fssa.blood.services;
 
 import java.sql.SQLException;
+import java.util.function.BooleanSupplier;
 
 import com.fssa.blood.DAO.UserDAO;
 import com.fssa.blood.DAO.exception.DAOException;
@@ -10,6 +11,11 @@ import com.fssa.blood.validation.UserValidator;
 import com.fssa.blood.validation.exception.InvalidUserException;
 
 public class UserServices {
+	
+	
+	
+	//In table User detail creating successfully
+	
 	public boolean create(User user) throws ServicesException, InvalidUserException{
 		
 		UserDAO userDAO = new UserDAO();
@@ -30,7 +36,7 @@ public class UserServices {
 
 	// login user
 
-	public boolean loginUser(User user) throws ServicesException {
+	public boolean login(User user) throws ServicesException {
 
 		try {
 			UserValidator.validateEmail(user.getemail());
@@ -47,6 +53,9 @@ public class UserServices {
 			throw new ServicesException(e);
 		}
 	}
+	
+	
+	//In table User detail Update successfully
 
 	public boolean update(User user) throws ServicesException {
 		
@@ -64,7 +73,8 @@ public class UserServices {
 		}
 	}
 
-
+	//In table User detail Deleted successfully
+	
 	public boolean delete(User user) throws ServicesException, InvalidUserException, SQLException {
 
 		UserDAO userDAO = new UserDAO();
@@ -81,6 +91,11 @@ public class UserServices {
 			throw new ServicesException(e);
 		}
 		return false;
+	}
+
+	public BooleanSupplier loginUser(String string, String string2) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	}
 		

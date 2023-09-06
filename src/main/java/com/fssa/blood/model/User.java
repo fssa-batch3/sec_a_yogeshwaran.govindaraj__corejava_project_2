@@ -6,15 +6,15 @@ public class User {
 	public String password;
 	public String address;
 	public String phone;
-	public String id;
+
 	
-	public User(String name,String email,String password,String address,String phone,String id) {
+	public User(String name,String email,String password,String address,String phone) {
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.address = address;
 		this.phone = phone;
-		this.id = id;
+	
 	}
 	
 	
@@ -43,9 +43,7 @@ public class User {
 	public void setphone(String phone) {
 		this.phone = phone;
 	}
-	public void setid(String id) {
-		this.id = id;
-	}
+
 	
 	//getter
 	
@@ -67,8 +65,5 @@ public class User {
 	public String getphone(){
 		return phone;
 	}
-	
-	public String getid() {
-		return id;
-	}
+
 }

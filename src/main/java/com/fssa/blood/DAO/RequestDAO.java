@@ -1,103 +1,149 @@
 package com.fssa.blood.DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fssa.blood.DAO.exception.DAOException;
 import com.fssa.blood.model.Request;
+import com.mysql.cj.xdevapi.Statement;
 
 public class RequestDAO {
 
 	// connection to database
 
-	public Connection getConnection() throws SQLException {
+	public Connection getConnection() {
 
-		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/blood", "root", "123456");
+		Connection connection = null;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/blood", "root", "123456");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Unable  to connect database", e);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Database driver class not found", e);
+		}
 		return connection;
 	}
-
 	// Insert request
 
 	public boolean createrequest(Request request) throws DAOException {
 		try {
 			Connection connection = getConnection();
 
-			String query = "INSERT INTO request (title,description,bloodgroup,date,number,id) VALUES(?,?,?,?,?,?)";
+			String query = "INSERT INTO request (title,description,bloodgroup,date,number, email) VALUES(?,?,?,?,?,?)";
 			PreparedStatement state = connection.prepareStatement(query);
 
 			state.setString(1, request.gettitle());
 			state.setString(2, request.getdescription());
 			state.setString(3, request.getgroup());
-			state.setString(4, request.getdate());
-			state.setString(5, request.getid());
-			state.setString(6, request.getnumber());
+			state.setDate(4, Date.valueOf(request.getdate()));
+			state.setLong(5, request.getnumber());
+			state.setString(6, request.getemail());
 
 			int row = state.executeUpdate();
 			state.close();
 			connection.close();
 			return (row == 1);
-	
+
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
 	}
 
+	public static void main(String[] args) {
+		Request req = new Request();
+		req.settitle("I need a blood");
+		req.setdescription("i need help");
+		req.setgroup("A+");
+		LocalDate dt =LocalDate.now(); 
+		req.setdate(dt);
+		req.setnumber(6380843014l);
+		req.setemail("arun@gmail.com");
+		
+		
+		
+		
+		try {
+			System.out.println(new RequestDAO().createrequest(req));
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	// read query
 
-	public boolean readrequest(Request request) throws DAOException {
+	public List<Request> readrequest() throws DAOException {
 
+		List<Request> list = new ArrayList<>();
 		try {
 			Connection connection = getConnection();
 
-			String readquery = "SELECT * FROM blood.request";
+			String readquery = "select * from request where is_deleted=0";
 			PreparedStatement state = connection.prepareStatement(readquery);
 
 			ResultSet resultSet = state.executeQuery();
-			String Query = "Request Attributes  title = ?, description = ?, bloodgroup = ?, date = ?, number = ?, WHERE id = ?";
 
 			while (resultSet.next()) {
+				
 				String title = resultSet.getString("title");
 				String description = resultSet.getString("description");
-				String group = resultSet.getString("group");
-				String date = resultSet.getString("date");
-				String number = resultSet.getString("number");
-				String id = resultSet.getString("id");
+				String group = resultSet.getString("bloodgroup");
 
-				System.out.println("title: " + title);
-				System.out.println("description: " + description);
-				System.out.println("group: " + group);
-				System.out.println("date: " + date);
-				System.out.println("number: " + number);
-				System.out.println("id: " + id);
+				java.sql.Date sqlDate = resultSet.getDate("date");
+                LocalDate localDate = sqlDate.toLocalDate();
+				
+				String email = resultSet.getString("email");
+				int id = resultSet.getInt("id");
+				
+				Request req = new Request();
+				
+				req.settitle(title);
+				req.setdescription(description);
+				req.setgroup(group);
+				req.setdate(localDate);
+				req.setemail(email);
+				req.setId(id);
+				
+				
+       
+				list.add(req);
 
-				resultSet.close();
-				state.close();
-				connection.close();
+				
 
 			}
+			resultSet.close();
+			state.close();
+			connection.close();
+			
+			return list;
 
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
-		return false;
 	}
 
-	public boolean updaterequest(Request request) throws DAOException {
+	public boolean updaterequest(Request request, String email) throws DAOException {
 		try {
 			Connection connection = getConnection();
 
-			String updatequery = "UPDATE user SET title = ?,description = ?, bloodgroup = ?,date = ?, number = ?, id = ?";
+			String updatequery = "UPDATE request SET title = ?,description = ?, bloodgroup = ?,date = ?, number = ? WHERE email = ?";
 			PreparedStatement state = connection.prepareStatement(updatequery);
 
 			state.setString(1, request.gettitle());
 			state.setString(2, request.getdescription());
 			state.setString(3, request.getgroup());
-			state.setString(4, request.getdate());
-			state.setString(6, request.getnumber());
-			state.setString(5, request.getid());
+			state.setDate(4, Date.valueOf(request.getdate()));
+			state.setLong(5, request.getnumber());
+			state.setString(6, request.getemail());
 
 			int row = state.executeUpdate();
 			return (row == 1);
@@ -105,4 +151,102 @@ public class RequestDAO {
 			throw new DAOException(e);
 		}
 	}
+
+	public boolean sameEmailExist(String email) throws SQLException, DAOException {
+		boolean match = false;
+		int count = 0;
+
+		try (Connection connection = getConnection();
+				PreparedStatement pst = connection.prepareStatement("SELECT * FROM request WHERE email = ?");) {
+
+			pst.setString(1, email);
+			try (ResultSet resultSet = pst.executeQuery()) {
+				while (resultSet.next()) {
+					String email1 = resultSet.getString("email");
+					System.out.println("email: " + email1);
+					if (email.toLowerCase().trim().equals(email1)) {
+						count++;
+					}
+				}
+			}
+
+			if (count > 0) {
+				match = true;
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Error: " + e);
+		}
+
+		return match;
+	}
+	
+
+	
+	//get all users list
+	/**
+	 * 
+	 * @return
+	 * @throws DAOException
+	 */
+//	public List<Request> getAllRequests() throws DAOException {
+//	    final String selectRequestListQuery = "SELECT * FROM blood.request"; // Correct the table name
+//	    
+//	    List<Request> requests = new ArrayList<>();
+//	    
+//	    try (Connection connection = getConnection();
+//	         PreparedStatement statement = connection.prepareStatement(selectRequestListQuery);
+//	         ResultSet rs = statement.executeQuery()) {
+//	        
+//	        while (rs.next()) {
+//	            int id = rs.getInt("id"); // Assuming you have an 'id' field
+//	            String title = rs.getString("title");
+//	            String description = rs.getString("description");
+//	            String bloodgroup = rs.getString("bloodgroup");
+//	            LocalDate date = rs.getDate("date").toLocalDate(); // Convert SQL Date to LocalDate
+//	            Long number = rs.getLong("number");
+//	            String email = rs.getString("email");
+//	            // Assuming 'is_driver' is a boolean column
+//	            boolean isDriver = rs.getBoolean("is_driver");
+//
+//	            // Create a new Request object with retrieved values
+//	            Request request = new Request(title, description, bloodgroup, date, number, email);
+//	            
+//	            requests.add(request);
+//	        }
+//	    } catch (SQLException e) {
+//	        throw new DAOException(e);
+//	    }
+//	    
+//	    return requests;
+//	}
+
+	
+	
+
+	public boolean deleterequest(String email) throws DAOException {
+		try {
+			// Get connection
+			Connection connection = getConnection();
+
+			// Prepare SQL statement
+			String deleteQuery = "UPDATE request SET is_deleted = ? WHERE email = ?";
+			PreparedStatement statement = connection.prepareStatement(deleteQuery);
+			statement.setInt(1, 1);
+			statement.setString(2, email);
+			
+			
+
+			// Execute the query
+			int rows = statement.executeUpdate();
+
+			statement.close();
+			connection.close();
+
+			// Return successful or not
+			return (rows == 1);
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
+	}
+
 }
