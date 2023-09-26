@@ -8,28 +8,28 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.blood.DAO.exception.DAOException;
-import com.fssa.blood.model.Request;
-import com.fssa.blood.service.RequestService;
+import com.fssa.blood.service.UserService;
 import com.fssa.blood.service.exception.ServiceException;
 import com.fssa.blood.validation.exception.InvalidUserException;
 
-public class TestRequestDelete {
-
+public class TestUserDelete {
+	
 	@Test
-	void testDeleteSuccess() throws ServiceException {
-		String email = "yogesh@gmail.com";
-//		Request request = new Request(email);
+	void testDeleteSuccess() throws ServiceException, SQLException {
+		String email = "yogs@gmail.com";
 
-		RequestService requestService = new RequestService();
+
+		UserService userService = new UserService();
 
 		try {
-		
-			assertTrue(requestService.delete(email));		
 			
-		} catch (InvalidUserException | DAOException e) {
+			assertTrue(userService.delete(email));		
+			
+		} catch (InvalidUserException e) {
 			e.printStackTrace();
 			fail("Request deletion failed");
 		} 
 	}
 
 }
+

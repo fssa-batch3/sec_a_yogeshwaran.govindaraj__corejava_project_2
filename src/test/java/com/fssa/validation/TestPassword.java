@@ -12,36 +12,36 @@ public class TestPassword {
 	@Test
 	public void testValidPassword() {
 
-		assertTrue(UserValidator.Validatepassword("Password@123"));
+		assertTrue(UserValidator.ValidatePassword("Password@123"));
 
 	}
 
 	@Test
 	public void testInvalidPasswordWithoutSpecialCharacters() {
-		assertFalse(UserValidator.Validatepassword("Password123"));
+		assertFalse(UserValidator.ValidatePassword("Password123"));
 
 	}
 
 	@Test
 	public void testInvalidPasswordWithoutNumbers() {
-		assertFalse(UserValidator.Validatepassword("Password@"));
+		assertFalse(UserValidator.ValidatePassword("Password@"));
 
 	}
 
 	@Test
 	public void testInvalidPasswordWithoutCapitalLetters() {
-		assertFalse(UserValidator.Validatepassword("password123"));
+		assertFalse(UserValidator.ValidatePassword("password123"));
 
 	}
 
 	@Test
 	public void testInvalidPasswordWithoutSmallLetters() {
-		assertFalse(UserValidator.Validatepassword("PASSWORD@123"));
+		assertFalse(UserValidator.ValidatePassword("PASSWORD@123"));
 
 	}
 	@Test
 	public void testInvalidPasswordShorterLength() {
-		assertFalse(UserValidator.Validatepassword("Pas@123"));
+		assertFalse(UserValidator.ValidatePassword("Pas@123"));
 
 	}
 }

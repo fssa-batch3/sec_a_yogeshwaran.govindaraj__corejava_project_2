@@ -1,14 +1,14 @@
 package com.fssa.blood.service.exception;
 
-public class ServicesException extends Exception{
+public class ServiceException extends Exception{
 	
 	private static final long serialVersionUID = -7798283981195321951L;
 	
-	public ServicesException(String msg) {
+	public ServiceException(String msg) {
 		super(msg);
 	}
 	
-	public ServicesException(Throwable e) {
+	public ServiceException(Throwable e) {
 		super(e);
 	}
 	

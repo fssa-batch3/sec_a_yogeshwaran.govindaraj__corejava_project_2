@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Request {
 
 	
-	public String title;
+	public String name;
 	public String description;
 	public String group;
 	public LocalDate date;
@@ -34,8 +34,8 @@ public class Request {
 	public Request() {
 		
 	}
-	public Request(String title, String description, String group, LocalDate date, long number, String email) {
-		this.title = title;
+	public Request(String name, String description, String group, LocalDate date, long number, String email) {
+		this.name = name;
 		this.description = description;
 		this.group = group;
 		this.date = date;
@@ -49,8 +49,8 @@ public class Request {
 	
 	
 
-	public void settitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setdescription(String description) {
@@ -74,8 +74,8 @@ public class Request {
 	}
 	
 	
-	public String gettitle() {
-		return title;
+	public String getname() {
+		return name;
 	}
 
 	public String getdescription() {
@@ -97,9 +97,9 @@ public class Request {
 	public String getemail() {
 		return email;
 	}
-	public Request (String title, String description, String group, Long number) {
+	public Request (String name, String description, String group, Long number) {
 		super();
-		this.title = title;
+		this.name = name;
 		this.description = description;
 		this.group = group;
 		this.number = number;
@@ -108,7 +108,7 @@ public class Request {
 
 	@Override
 	public String toString() {
-		return "Request [title=" + title + ", description=" + description + ", group=" + group + ", date=" + date
+		return "Request [name=" + name + ", description=" + description + ", group=" + group + ", date=" + date
 				+ ", number=" + number + ", email=\" + email +],";
 	}
 

@@ -2,6 +2,7 @@ package com.fssa.blood.validation;
 
 import java.util.regex.Pattern;
 
+
 import com.fssa.blood.DAO.exception.DAOException;
 import com.fssa.blood.model.User;
 import com.fssa.blood.validation.exception.InvalidUserException;
@@ -12,21 +13,24 @@ public class UserValidator {
 
 	public static boolean Validation(User user) throws InvalidUserException {
 		boolean match = false;
-		if (user != null && Validatename(user.getname()) && validateEmail(user.getemail())
-				&& Validatepassword(user.getpassword()) && Validatephone(user.getphone())
-				&& Validateaddress(user.getaddress()) ) {
+		
+		if(user != null && ValidateName(user.getName()) && ValidateEmail(user.getEmail()) &&  ValidatePassword(user.getPassword()) && ValidateAddress(user.getAddress()) 
+				&& ValidatePhone(user.getPhone())) {
 			match = true;
 		} else {
 			throw new InvalidUserException("Invalid user");
 		}
 		return match;
 	}
+		
+		
+		
 	
 	
 	// Checking the loginUser present or not
 
 			public static boolean validateLogIn(User user) throws DAOException {
-				if (user != null && validateEmail(user.getemail()) && Validatepassword(user.getpassword())) {
+				if (user != null && ValidateEmail(user.getEmail()) && ValidatePassword(user.getPassword())) {
 					return true;
 				} else {
 					throw new DAOException("User details not valid");
@@ -38,18 +42,21 @@ public class UserValidator {
 			// Checking the validate update details
 			
 			public static boolean validateUpdateUser(User user) throws DAOException, InvalidUserException {
-				if (user != null && Validatename(user.getname()) && Validatepassword(user.getpassword())
-						&& validateEmail(user.getemail())){
+				if (user != null && ValidateName(user.getName()) && ValidatePassword(user.getPassword())
+						&& ValidateEmail(user.getEmail())&& ValidateAddress(user.getAddress()) && ValidatePhone(user.getPhone())){
 					return true; 
 				} else {
 					throw new DAOException("User details not valid");
 				}
 			}
 			
+			
+			
+			
 			// Checking the validate deleted details
 			
 			public static boolean validateDeleteUser(User user) throws DAOException {
-				if (user != null && validateEmail(user.getemail()) ) {
+				if (user != null && ValidateEmail(user.getEmail()) ) {
 					return true;
 				} else {
 					throw new DAOException("User details not valid");
@@ -67,12 +74,12 @@ public class UserValidator {
 		
 
 
-			//its mine 
+			
 
-	public static boolean Validatename(String name) throws InvalidUserException {
+	public static boolean ValidateName(String name) throws InvalidUserException {
 		boolean match = false;
 
-		String regex = "^[A-Za-z]\\w{2,29}$";;
+		String regex = "^[A-Za-z ]\\w{2,29}$";;
 		match = Pattern.matches(regex, name);
 
 		if (match) {
@@ -83,7 +90,7 @@ public class UserValidator {
 		return match;
 	}
 
-	public static boolean validateEmail(String email) {
+	public static boolean ValidateEmail(String email) {
 
 		boolean match = false;
 		String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
@@ -97,7 +104,7 @@ public class UserValidator {
 		return match;
 	}
 
-	public static boolean Validatepassword(String password) {
+	public static boolean ValidatePassword(String password) {
 		boolean match = false;
 
 		String passwordRegex = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=])(?=.*[^\\s]).{8,}$";
@@ -111,7 +118,9 @@ public class UserValidator {
 		return match;
 	}
 
-	public static boolean Validateaddress(String address) {
+	
+	
+	public static boolean ValidateAddress(String address) {
 
 		boolean match = false;
 
@@ -126,7 +135,7 @@ public class UserValidator {
 		return match;
 	}
 
-	public static boolean Validatephone(String phone) {
+	public static boolean ValidatePhone(String phone) {
 
 		boolean match = false;
 		String phoneRegex = "[0-9]{10}";

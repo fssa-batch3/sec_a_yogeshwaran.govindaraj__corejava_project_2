@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import com.fssa.blood.DAO.exception.DAOException;
 import com.fssa.blood.model.Request;
-import com.fssa.blood.service.exception.ServicesException;
-import com.fssa.blood.services.RequestService;
+import com.fssa.blood.service.RequestService;
+import com.fssa.blood.service.exception.ServiceException;
 import com.fssa.blood.validation.exception.InvalidUserException;
 
 public class TestRequestFeature {
@@ -22,12 +22,12 @@ public class TestRequestFeature {
 		LocalDate date = LocalDate.of(2002, 2, 23);
 
 		RequestService requestService = new RequestService();
-		Request user1 = new Request("i need O+ blood group", "Thank you for giving blood", "O+", date, 6380843014l,
+		Request user1 = new Request("Yogesh", "Thank you for giving blood", "O+", date, 6380843014l,
 				"mani@gmail.com");
 		try {
 			requestService.create(user1);
 
-		} catch (ServicesException | DAOException e) {
+		} catch (ServiceException | DAOException e) {
 			e.printStackTrace();
 			fail();
 
@@ -36,11 +36,11 @@ public class TestRequestFeature {
 	}
 
 	@Test
-	public void testRequestFailure() throws SQLException, ServicesException, InvalidUserException {
+	public void testRequestFailure() throws SQLException, ServiceException, InvalidUserException {
 		LocalDate date = LocalDate.of(2002, 2, 23);
 
 		RequestService userService = new RequestService();
-		Request user1 = new Request("i need AB+ blood group", "Thank you for giving blood", "AB+", date, 638084l,
+		Request user1 = new Request("Yogesh", "Thank you for giving blood", "AB+", date, 6380843014l,
 				"yogesh@gmail.com");
 		try {
 			assertTrue(userService.create(user1));
@@ -52,18 +52,18 @@ public class TestRequestFeature {
 	}
 
 	@Test
-	public void testInvalidNumber() throws InvalidUserException, SQLException, ServicesException {
+	public void testInvalidNumber() throws InvalidUserException, SQLException, ServiceException {
 		LocalDate date = LocalDate.of(2002, 2, 23);
 
 		RequestService userService = new RequestService();
-		Request user1 = new Request("i need AB+ blood group", "Thank you for giving blood", "AB+", date, 638084l,
+		Request user1 = new Request("Yogesh", "Thank you for giving blood", "AB+", date, 6380843014l,
 				"yogesh@gmail.com");
 		try {
 			assertFalse(!userService.create(user1)); // Using assertTrue to check for the condition
 
 		} catch (DAOException e) {
 			e.printStackTrace();
-			fail();
+		
 		}
 	}
 

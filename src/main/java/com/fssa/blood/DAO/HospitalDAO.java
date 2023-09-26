@@ -1,21 +1,15 @@
 package com.fssa.blood.DAO;
 
 import java.sql.Connection;
-
-
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.fssa.blood.DAO.exception.DAOException;
-import com.fssa.blood.model.User;
-import com.fssa.utils.ConnectionUtil;
+import com.fssa.blood.model.Hospital;
 
-
-public class UserDAO {
-	
-	//Connection to Database 
+public class HospitalDAO {
 	
 	public Connection getConnection()  {
 
@@ -36,7 +30,7 @@ public class UserDAO {
 	
 	//login User
 	
-	public boolean login(User user) throws DAOException {
+	public boolean login(Hospital user) throws DAOException {
 		
 		try {
 		Connection connection = getConnection();
@@ -56,12 +50,12 @@ public class UserDAO {
 	
 		// Create User
 	
-	public boolean createUser(User user) throws DAOException {
+	public boolean createUser(Hospital user) throws DAOException {
 		
 		try {
 			Connection connection = getConnection();
 			
-			String query = "INSERT INTO user(name,email,password,address,phone) VALUES(?,?,?,?,?)";
+			String query = "INSERT INTO hospital(name,email,password,address,phone) VALUES(?,?,?,?,?)";
 			PreparedStatement state = connection.prepareStatement(query);
 			
 			state.setString(1,user.getName());
@@ -83,11 +77,11 @@ public class UserDAO {
 	
 			//Update User
 			
-			public boolean update(User user,String email)throws DAOException {
+			public boolean update(Hospital user,String email)throws DAOException {
 				try {
 				Connection connection = getConnection();
 				
-				String updatequery = "UPDATE user SET name = ?, password = ?,address = ?, phone = ? where email = ?";
+				String updatequery = "UPDATE hospital SET name = ?, password = ?,address = ?, phone = ? where email = ?";
 				PreparedStatement state = connection.prepareStatement(updatequery);
 				
 				state.setString(1,user.getName());
@@ -112,7 +106,7 @@ public class UserDAO {
 					try {
 					Connection connection = getConnection();
 					
-					String deletequery = "UPDATE user SET isdeleted = 1 WHERE email = ?";
+					String deletequery = "UPDATE hospital SET isdeleted = 1 WHERE email = ?";
 					PreparedStatement state = connection.prepareStatement(deletequery);
 					state.setString(1,email);
 					
@@ -126,77 +120,7 @@ public class UserDAO {
 				}
 				}
 				
-				public User getUserByEmail(String email) throws DAOException {
-
-					final String SELECTQUERY = "SELECT * FROM user WHERE email = ?";
-
-					try {
-					Connection connection = getConnection();
-					PreparedStatement state = connection.prepareStatement(SELECTQUERY);
-
-					state.setString(1, email);
-
-						try (ResultSet rs = state.executeQuery()) {
-
-							if (rs.next()) {
-
-								
-								String name = rs.getString("name");
-								String email1 = rs.getString("email");
-								String password = rs.getString("password");
-								String address = rs.getString("address");
-								String phone = rs.getString("phone");
-//								String bloodgroup = rs.getString("bloodgroup");  
-								
-
-								return new User(name,email1,password,address,phone);
-
-							}
-
-						}
-
-					} catch (SQLException e) {
-						throw new DAOException("Cannot get user's details");
-					}
-					return null;
-
-				}
-				public static void main(String[] args) {
-					try {
-						User user = new UserDAO().getUserByEmail("ajai@gmail.com");
-						System.out.println(user);
-					} catch (DAOException e) {
-						e.printStackTrace();
-					}
-				}
-				
-				
-				
-				public static int getUserIdByEmail(String email) throws DAOException {
-					int id = 0;
-					String queryDeleteEvents = "SELECT id FROM user WHERE email = ? ";
-					try (Connection con = ConnectionUtil.getConnection()) {
-						try (PreparedStatement pst = con.prepareStatement(queryDeleteEvents)) {
-
-							pst.setString(1, email);
-							try (ResultSet rs = pst.executeQuery()) {
-
-								if (rs.next()) {
-									id = rs.getInt("id");
-
-								}
-
-							}
-						}
-					} catch (SQLException e) {
-						throw new DAOException(e.getMessage());
-					}
-					return id;
-				}
-
-				
 			
 			
 		}
-	
 	

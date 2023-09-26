@@ -5,14 +5,13 @@ import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 import com.fssa.blood.model.Request;
-import com.fssa.blood.model.User;
 import com.fssa.blood.validation.exception.InvalidUserException;
 
 public class RequestValidator {
 	
 	public static boolean Validation(Request request)throws  InvalidUserException{
 		boolean match = false;
-		if(request != null  && Validategroup(request.getgroup()) && Validatenumber(request.getnumber())) {
+		if(request != null  &&ValidateName(request.getname()) && Validategroup(request.getgroup()) && Validatenumber(request.getnumber())) {
 			return true;
 		}else {
 			return false;
@@ -25,6 +24,25 @@ public class RequestValidator {
 
 
 	//Pattern
+	
+	
+	
+	public static boolean ValidateName(String name) throws InvalidUserException {
+		boolean match = false;
+
+		String regex = "^[A-Za-z]\\w{2,29}$";;
+		match = Pattern.matches(regex, name);
+
+		if (match) {
+			System.out.println("Name is Valid");
+		} else {
+			throw new InvalidUserException("Name is Invalid");
+		}
+		return match;
+	}
+	
+	
+	
 	public static boolean Validategroup(String group) {
 		boolean match = false;
 		

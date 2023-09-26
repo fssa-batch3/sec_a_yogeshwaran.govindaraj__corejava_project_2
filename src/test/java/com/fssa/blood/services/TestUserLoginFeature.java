@@ -1,18 +1,20 @@
 package com.fssa.blood.services;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
 import com.fssa.blood.model.User;
-import com.fssa.blood.service.exception.ServicesException;
-import com.fssa.blood.services.UserServices;
-import com.fssa.blood.validation.exception.InvalidUserException;
-import com.google.protobuf.ServiceException;
+import com.fssa.blood.service.UserService;
 
-public class TestLoginFeature {
+import com.fssa.blood.service.exception.ServiceException;
+import com.fssa.blood.validation.exception.InvalidUserException;
+
+
+public class TestUserLoginFeature {
 	
 
 
@@ -21,10 +23,10 @@ public class TestLoginFeature {
 			
 
 	        User user1 = new User("yogesh@gmail.com", "@yog#123");
-	        UserServices userService = new UserServices();
+	        UserService userService = new UserService();
 
 			try {
-				userService.create(user1);
+				userService.loginUser("yogesh11@gmail.com", "@Yogesh#123");
 			} catch (Exception e) {
 				e.printStackTrace();
 				fail();
@@ -35,29 +37,18 @@ public class TestLoginFeature {
 		
 		@Test
 		void testLoginSuccess() {
-			UserServices userService = new UserServices();
+			UserService userService = new UserService();
 			User user1 = new User("yogesh11@gmail.com", "@Yogesh#123");
 
-			try {
-				assertFalse(userService.login(user1));
-				
-			} catch (ServicesException e) {
-				e.printStackTrace();
-				fail();
-				
-			}
+			assertFalse(userService.loginUser("yogesh11@gmail.com", "@Yogesh#123"));
 		}
 
 		@Test
 		void testLoginNotSuccess() {
-			UserServices userService = new UserServices();
+			UserService userService = new UserService();
 			User user1 = new User("yogesh@gmail.com", "Yogesh123");
 			
-			try {
-				assertFalse(userService.login(user1));
-			} catch (ServicesException e) {
-				e.printStackTrace();
-			} 
+			assertFalse(userService.loginUser("yogesh@gmail.com","Yogesh123")); 
 		}
 
 //		@Test
@@ -76,13 +67,9 @@ public class TestLoginFeature {
 		
 		@Test
 		void testLoginWrongPassword() {
-			UserServices userService = new UserServices();
+			UserService userService = new UserService();
 			User user1 = new User("yogesh10@gmail.com", "Yogesh123");
-			try {
-				assertFalse(userService.login(user1));
-			} catch (ServicesException e) {
-				e.printStackTrace();
-			}
+			assertFalse(userService.loginUser("yogesh10@gmail.com", "Yogesh123"));
 		}
 	
 			

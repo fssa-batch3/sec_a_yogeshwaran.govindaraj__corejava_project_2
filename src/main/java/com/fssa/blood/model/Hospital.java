@@ -1,30 +1,17 @@
 package com.fssa.blood.model;
 
-public class User {
-
+public class Hospital {
 	private String name;
 	private String email;
 	private String password;
 	private String address;
 	private String phone;
 	public boolean isDeleted;
-	private int UserId;
-
 	
-	
-	
-	public int getUserId() {
-		return UserId;
+	public Hospital() {
 	}
 
-	public void setUserId(int userId) {
-		UserId = userId;
-	}
-
-	public User() {
-	}
-
-	public User(String name, String email, String password, String address, String phone, boolean isDeleted) {
+	public Hospital(String name, String email, String password, String address, String phone, boolean isDeleted) {
 		super();
 
 		this.name = name;
@@ -35,7 +22,7 @@ public class User {
 		this.isDeleted = isDeleted;
 	}
 
-	public User(String name, String email, String password, String address, String phone) {
+	public Hospital(String name, String email, String password, String address, String phone) {
 		super();
 
 		this.name = name;
@@ -45,21 +32,20 @@ public class User {
 		this.phone = phone;
 	}
 
-	public User(String email, String password) {
+	public Hospital(String email, String password) {
 		super();
 		this.email = email;
 		this.password = password;
 	}
 
-	public User(String email, boolean isDeleted) {
+	public Hospital(String email, boolean isDeleted) {
 		super();
 		this.email = email;
 		this.isDeleted = isDeleted;
 	}
 
-	public User(int userid2, String name2, String email2, String password2, String address2, String phone2,
+	public Hospital(String name2, String email2, String password2, String address2, String phone2,
 			int deleted) {
-		// TODO Auto-generated constructor stub
 	}
 
 	
@@ -115,7 +101,9 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [name=" + name + ", email=" + email + ", password=" + password + ", address="
-				+ address + ", phone=" + phone + ", isDeleted=" + isDeleted + ", UserId=" + UserId + "]";
+				+ address + ", phone=" + phone + ", isDeleted=" + isDeleted + "]";
 
 	}
 }
+
+

@@ -8,24 +8,24 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.blood.model.User;
-import com.fssa.blood.service.exception.ServicesException;
-import com.fssa.blood.services.UserServices;
+import com.fssa.blood.service.UserService;
+import com.fssa.blood.service.exception.ServiceException;
 import com.fssa.blood.validation.exception.InvalidUserException;
 
 
-public class TestRegisterFeature {
+public class TestUserRegisterFeature {
 
 	// main method
 
-	public static void main(String[] args) throws ServicesException, InvalidUserException {
+	public static void main(String[] args) throws ServiceException, InvalidUserException {
 
 		User user1 = new User("Yogesh", "yogesh@gmail.com", "@Yogesh#123", "Trichy",
 				"6380843014");
-		UserServices userService = new UserServices();
+		UserService userService = new UserService();
 
 		try {
 			assertFalse(userService.create(user1));
-		} catch (ServicesException | InvalidUserException e) {
+		} catch (ServiceException | InvalidUserException e) {
 			
 			e.printStackTrace();
 			fail();
@@ -37,12 +37,12 @@ public class TestRegisterFeature {
 	
 	@Test
 	 void testRegistrationSuccess() {
-		UserServices userService = new UserServices();
-		User user1 = new User("yogs@gmail.com", "Yogesh", "Ajmal@123", "Trichy",
+		UserService userService = new UserService();
+		User user1 = new User( "Yogesh","yogs@gmail.com", "Ajmal@123", "Trichy",
 				"6380843014");
 		try {
-			assertFalse(userService.create(user1));
-		} catch (ServicesException | InvalidUserException e) {
+			assertTrue(userService.create(user1));
+		} catch (ServiceException | InvalidUserException e) {
 			
 			e.printStackTrace();
 			
@@ -53,14 +53,14 @@ public class TestRegisterFeature {
 	 
 	@Test  
 	 void testNullUser() throws InvalidUserException {
-		UserServices userService = new UserServices(); 
+		UserService userService = new UserService(); 
 		User user1 = null;
 		
 		try {
 			assertFalse(userService.create(user1));
 			fail();
 
-		} catch (ServicesException | InvalidUserException e) {
+		} catch (ServiceException | InvalidUserException e) {
 			
 			e.printStackTrace();
 		}
@@ -69,13 +69,13 @@ public class TestRegisterFeature {
 	
 	@Test
 	 void testRegistrationExistsingUser() throws InvalidUserException {
-		UserServices userService = new UserServices();
+		UserService userService = new UserService();
 		User user1 = new User("yogs@gmail.com", "Yogesh", "Ajmal@123", "Trichy",
 				"6380843014");
 		
 		try {
 			assertFalse(userService.create(user1));
-		} catch (ServicesException | InvalidUserException e) {
+		} catch (ServiceException | InvalidUserException e) {
 			
 			e.printStackTrace();
 			

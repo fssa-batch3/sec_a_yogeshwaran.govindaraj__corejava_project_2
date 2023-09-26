@@ -1,6 +1,5 @@
-package com.fssa.blood.services;
+package com.fssa.blood.service;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.function.BooleanSupplier;
 
@@ -9,9 +8,8 @@ import com.fssa.blood.DAO.UserDAO;
 import com.fssa.blood.DAO.exception.DAOException;
 import com.fssa.blood.model.Request;
 import com.fssa.blood.model.User;
-import com.fssa.blood.service.exception.ServicesException;
+import com.fssa.blood.service.exception.ServiceException;
 import com.fssa.blood.validation.RequestValidator;
-import com.fssa.blood.validation.UserValidator;
 import com.fssa.blood.validation.exception.InvalidUserException;
 
 public class RequestService {
@@ -19,7 +17,7 @@ public class RequestService {
 
 
 
-public boolean create(Request request) throws ServicesException, DAOException {
+public boolean create(Request request) throws ServiceException, DAOException {
 		
 	RequestDAO requestDAO = new RequestDAO();
 		
@@ -32,14 +30,27 @@ public boolean create(Request request) throws ServicesException, DAOException {
 				return false;
 			}
 		} catch (InvalidUserException e) {
-			throw new ServicesException(e);
+			throw new ServiceException(e);
 		}
 
-	}
-	
+}
 
 
-public List<Request> readrequest() throws ServicesException {
+//public String getUser(String email) throws ServiceException {
+//	RequestDAO userDAO = new RequestDAO();
+////	UserValidator validator = new UserValidator();
+//
+//	try {
+//		String blood = userDAO.getUserByEmail(email);
+//		return blood;
+//	} catch (DAOException e) {
+//		throw new ServiceException(e.getMessage());
+//	}
+//}
+//	
+
+
+public List<Request> readrequest() throws ServiceException {
 	
 	RequestDAO requestDAO = new RequestDAO();
 		
@@ -49,13 +60,13 @@ public List<Request> readrequest() throws ServicesException {
 			return req;
 			
 		} catch (DAOException e) {
-			throw new ServicesException(e);
+			throw new ServiceException(e);
 		}
 		
 
 	}
 
-public  boolean updaterequest(Request request,String email) throws ServicesException,InvalidUserException, DAOException {
+public  boolean updaterequest(Request request,String email) throws ServiceException,InvalidUserException, DAOException {
 	
 	RequestDAO requestDAO = new RequestDAO();
 		
@@ -70,12 +81,12 @@ public  boolean updaterequest(Request request,String email) throws ServicesExcep
 			}
 		} catch (DAOException|InvalidUserException e) {
 			e.printStackTrace();
-			throw new ServicesException(e);
+			throw new ServiceException(e);
 		}
 
 	}
 
-public boolean delete(String email) throws ServicesException, InvalidUserException, DAOException {
+public boolean delete(String email) throws ServiceException, InvalidUserException, DAOException {
 
 	RequestDAO requestDAO = new RequestDAO();
 	try {
@@ -89,7 +100,7 @@ public boolean delete(String email) throws ServicesException, InvalidUserExcepti
 	
 	}catch(DAOException e) {
 		e.printStackTrace();
-		throw new ServicesException(e);
+		throw new ServiceException(e);
 	}
 	
 }
