@@ -12,44 +12,38 @@ import com.fssa.blood.service.UserService;
 
 import com.fssa.blood.service.exception.ServiceException;
 import com.fssa.blood.validation.exception.InvalidUserException;
-
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class TestUserLoginFeature {
+
+    @Test
+    void testLoginSuccess() {
+        UserService userService = new UserService();
+        User user1 = new User("yogesh11@gmail.com", "@Yogesh#123");
+        assertTrue(userService.loginUser("yogesh11@gmail.com", "@Yogesh#123"));
+    }
+
+    @Test
+    void testLoginNotSuccess() {
+        UserService userService = new UserService();
+        User user1 = new User("yogesh@gmail.com", "Yogesh123");
+        assertFalse(userService.loginUser("yogesh@gmail.com", "Yogesh123"));
+    }
+
+    @Test
+    void testLoginWrongPassword() {
+        UserService userService = new UserService();
+        User user1 = new User("yogesh10@gmail.com", "Yogesh123");
+        assertFalse(userService.loginUser("yogesh10@gmail.com", "Yogesh123"));
+    }
+}
+
 	
-
-
-		
-		public static void main(String[] args) {
 			
 
-	        User user1 = new User("yogesh@gmail.com", "@yog#123");
-	        UserService userService = new UserService();
 
-			try {
-				userService.loginUser("yogesh11@gmail.com", "@Yogesh#123");
-			} catch (Exception e) {
-				e.printStackTrace();
-				fail();
-			}
-
-		}
 		
-		
-		@Test
-		void testLoginSuccess() {
-			UserService userService = new UserService();
-			User user1 = new User("yogesh11@gmail.com", "@Yogesh#123");
-
-			assertFalse(userService.loginUser("yogesh11@gmail.com", "@Yogesh#123"));
-		}
-
-		@Test
-		void testLoginNotSuccess() {
-			UserService userService = new UserService();
-			User user1 = new User("yogesh@gmail.com", "Yogesh123");
-			
-			assertFalse(userService.loginUser("yogesh@gmail.com","Yogesh123")); 
-		}
 
 //		@Test
 //		void testLoginWrongEmail() {
@@ -63,20 +57,6 @@ public class TestUserLoginFeature {
 //				
 //			}
 //		}
-		
-		
-		@Test
-		void testLoginWrongPassword() {
-			UserService userService = new UserService();
-			User user1 = new User("yogesh10@gmail.com", "Yogesh123");
-			assertFalse(userService.loginUser("yogesh10@gmail.com", "Yogesh123"));
-		}
-	
-			
-
-
-		
-		
 
 //		@Test
 //		public void testLoginSuccess() throws InvalidUserException, SQLException {
@@ -130,10 +110,6 @@ public class TestUserLoginFeature {
 //				
 //				e.printStackTrace();
 //			}
-//		
-//
-//		}
-}
 
 
-//this anthore 
+
