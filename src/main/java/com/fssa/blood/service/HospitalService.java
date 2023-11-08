@@ -4,8 +4,10 @@ import java.sql.SQLException;
 import java.util.function.BooleanSupplier;
 
 import com.fssa.blood.DAO.HospitalDAO;
+import com.fssa.blood.DAO.UserDAO;
 import com.fssa.blood.DAO.exception.DAOException;
 import com.fssa.blood.model.Hospital;
+import com.fssa.blood.model.User;
 import com.fssa.blood.service.exception.ServiceException;
 import com.fssa.blood.validation.HospitalValidator;
 import com.fssa.blood.validation.exception.InvalidUserException;
@@ -14,7 +16,7 @@ import com.fssa.blood.validation.exception.InvalidUserException;
 
 public class HospitalService {
 
-public boolean create(Hospital user) throws ServiceException, InvalidUserException{
+public  boolean create(Hospital user) throws ServiceException, InvalidUserException{
 		
 	HospitalDAO userDAO = new HospitalDAO();
 		
@@ -47,7 +49,8 @@ public boolean create(Hospital user) throws ServiceException, InvalidUserExcepti
 			} else {
 				return false;
 			}
-		} catch (Exception e) {
+		} catch(DAOException e) {
+			e.printStackTrace();
 			throw new ServiceException(e);
 		}
 	}
@@ -88,7 +91,21 @@ public boolean create(Hospital user) throws ServiceException, InvalidUserExcepti
 			throw new ServiceException(e);
 		}
 	}
+	
+	public Hospital getHospital(String email) throws ServiceException {
+		HospitalDAO userDAO = new HospitalDAO();
+//		UserValidator validator = new UserValidator();
 
+		try {
+			Hospital loggedUser = userDAO.getHospitalByEmail(email);
+			return loggedUser;
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage());
+		}
+	
+	}
+	
+	
 	public BooleanSupplier loginUser(String string, String string2) {
 		// TODO Auto-generated method stub
 		return null;

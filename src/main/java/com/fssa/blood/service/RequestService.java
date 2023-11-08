@@ -4,10 +4,8 @@ import java.util.List;
 import java.util.function.BooleanSupplier;
 
 import com.fssa.blood.DAO.RequestDAO;
-import com.fssa.blood.DAO.UserDAO;
 import com.fssa.blood.DAO.exception.DAOException;
 import com.fssa.blood.model.Request;
-import com.fssa.blood.model.User;
 import com.fssa.blood.service.exception.ServiceException;
 import com.fssa.blood.validation.RequestValidator;
 import com.fssa.blood.validation.exception.InvalidUserException;
@@ -50,21 +48,24 @@ public boolean create(Request request) throws ServiceException, DAOException {
 //	
 
 
-public List<Request> readrequest() throws ServiceException {
-	
-	RequestDAO requestDAO = new RequestDAO();
-		
-		try {
-		
-			List<Request> req = requestDAO.readrequest();
-			return req;
-			
-		} catch (DAOException e) {
-			throw new ServiceException(e);
-		}
-		
+//
+//    private static RequestDAO requestDAO; // Assuming you have a DAO class
+//
+//    public RequestService() {
+//        this.requestDAO = requestDAO;
+//    }
 
-	}
+    public static Request getRequestsByEmail(String email) throws ServiceException {
+        Request req = new Request();
+		try {
+			req = RequestDAO.readRequest(email);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return req;
+    }
+
 
 public  boolean updaterequest(Request request,String email) throws ServiceException,InvalidUserException, DAOException {
 	
@@ -101,6 +102,27 @@ public boolean delete(String email) throws ServiceException, InvalidUserExceptio
 	}catch(DAOException e) {
 		e.printStackTrace();
 		throw new ServiceException(e);
+	}
+	
+}
+public List<Request> listRequestsByEmail() throws ServiceException {
+	RequestDAO requestDAO = new RequestDAO();
+    try {
+        return RequestDAO.listrequest();
+    } catch (DAOException e) {
+    	e.printStackTrace();
+        // You can log the exception or perform error handling as needed
+        throw new ServiceException("Error in listing requests by email");
+    }
+}
+
+public static void main(String[] args) {
+	
+	try {
+		List<Request> req = new RequestService().listRequestsByEmail();
+		System.out.println(req.get(0).toString());
+	} catch ( ServiceException e) {
+		e.printStackTrace();
 	}
 	
 }

@@ -109,8 +109,10 @@ public class Request {
 	@Override
 	public String toString() {
 		return "Request [name=" + name + ", description=" + description + ", group=" + group + ", date=" + date
-				+ ", number=" + number + ", email=\" + email +],";
+				+ ", number=" + number + ", email=" + email + "]";
 	}
+
+	
 
 
 

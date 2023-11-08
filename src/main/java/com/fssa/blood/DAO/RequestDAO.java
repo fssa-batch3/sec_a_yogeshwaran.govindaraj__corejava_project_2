@@ -19,7 +19,7 @@ public class RequestDAO {
 
 	// connection to database
 
-	public Connection getConnection() {
+	public static Connection getConnection() {
 
 		Connection connection = null;
 		try {
@@ -86,58 +86,118 @@ public class RequestDAO {
 	
 	// Read query
 
-	public List<Request> readrequest(String email) throws DAOException {
+	public static List<Request> listrequest() throws DAOException {
+	    List<Request> list = new ArrayList<>();
 
-		List<Request> list = new ArrayList<>();
-		try {
-			Connection connection = getConnection();
+	    try (Connection connection = getConnection();
+	         PreparedStatement state = connection.prepareStatement("SELECT * FROM request ")) {
 
-			String readquery = "select * from request where email = ?"; 
-			PreparedStatement state = connection.prepareStatement(readquery);
-			
-			ResultSet resultSet = state.executeQuery();
 
-			while (resultSet.next()) {
-				
-				String name = resultSet.getString("name");
-				String description = resultSet.getString("description");
-				String group = resultSet.getString("bloodgroup");
+	        try (ResultSet resultSet = state.executeQuery()) {
+	            while (resultSet.next()) {
+	                String name = resultSet.getString("name");
+	                String description = resultSet.getString("description");
+	                String group = resultSet.getString("bloodgroup");
 
-				java.sql.Date sqlDate = resultSet.getDate("date");
-                LocalDate localDate = sqlDate.toLocalDate();
-				
-                Long number = resultSet.getLong("number");
-                
-				String emailId = resultSet.getString("email");
-				int id = resultSet.getInt("id");
-				
-				Request req = new Request();
-				
-				req.setName(name);
-				req.setdescription(description);
-				req.setgroup(group);
-				req.setdate(localDate);
-				req.setnumber(number);
-				req.setemail(emailId);
-				req.setId(id);
-				
-				
-       
-				list.add(req);
+	                java.sql.Date sqlDate = resultSet.getDate("date");
+	                LocalDate localDate = sqlDate.toLocalDate();
 
-				
+	                Long number = resultSet.getLong("number");
 
-			}
-			resultSet.close();
-			state.close();
-			connection.close();
-			
-			return list;
+	                String emailId = resultSet.getString("email");
+	                int id = resultSet.getInt("id");
 
-		} catch (SQLException e) {
-			throw new DAOException(e);
-		}
+	                Request req = new Request();
+
+	                req.setName(name);
+	                req.setdescription(description); // Correct method name
+	                req.setgroup(group); // Correct method name
+	                req.setdate(localDate);
+	                req.setnumber(number);
+	                req.setemail(emailId);
+	                req.setId(id);
+
+	                list.add(req);
+	            }
+	        }
+
+	        return list;
+
+	    } catch (SQLException e) {
+	    	e.printStackTrace();
+	        throw new DAOException("Error fetching requests by email");
+	    }
 	}
+	
+	public static void main(String[] args) {
+		
+		try {
+			List<Request> req = listrequest();
+			System.out.println(req.get(1).toString());
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	
+	public static Request readRequest(String email) throws DAOException {
+
+	    Request donatingrequest = new Request();
+	    try {
+	        Connection connection = null;
+			try {
+				connection = getConnection();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	        String readquery = "SELECT * FROM request WHERE email = ?";
+	        PreparedStatement state = connection.prepareStatement(readquery);
+	        state.setString(1, email); // Set the email parameter
+
+	        ResultSet resultSet = state.executeQuery();
+
+	        if (resultSet.next()) {
+	        	
+	        	
+	            String name = resultSet.getString("name");
+	            String description = resultSet.getString("description");
+	            String group = resultSet.getString("bloodgroup");
+
+	            java.sql.Date sqlDate = resultSet.getDate("date");
+	            LocalDate localDate = sqlDate.toLocalDate();
+
+	            Long number = resultSet.getLong("number");
+
+	            String emailId = resultSet.getString("email");
+	            int id = resultSet.getInt("id");
+
+	            Request req = new Request();
+
+	            req.setName(name);
+	            req.setdescription(description); // Correct method name
+	            req.setgroup(group); // Correct method name
+	            req.setdate(localDate);
+	            req.setnumber(number);
+	            req.setemail(emailId);
+	            req.setId(id);
+	            	
+	            donatingrequest = req;
+	            
+	        }
+	        resultSet.close();
+	        state.close();
+	        connection.close();
+
+	        return donatingrequest;
+
+	    } catch (SQLException e) {
+	        throw new DAOException(e);
+	    }
+	}
+
 	
 	
 	
@@ -231,6 +291,9 @@ public class RequestDAO {
 			throw new DAOException(e);
 		}
 	}
+	
+	
+	
 	
 
 }
